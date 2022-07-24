@@ -1,0 +1,5 @@
+<div class="day-picker">
+  <div *ngFor="let day of days; let i=index" [ngClass]="{ 'dark' : this.selectedIndex[i] , 'light' : !this.selectedIndex[i] }" class="day-round-btn" (click)="addDayToBlock(i)">
+    {{day}}
+  </div>
+</div>

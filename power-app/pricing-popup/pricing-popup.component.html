@@ -1,0 +1,39 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Pricing</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div *ngIf="!index" class="px-2">
+    <pricing [fromPricing]="false" [indexPricing]="false" [outerModal]="modal" [contractDetails]="contractDetails"
+      [itemIndex]="itemIndex" [mdmPriceUnit]="mdmPriceUnit"></pricing>
+  </div>
+  <div *ngIf="index">
+    <app-formula-form [fromPricing]="false" [indexPricing]="true" [outerModal]="modal"
+      [contractDetails]="contractDetails" [itemIndex]="itemIndex" [mdmPriceUnit]="mdmPriceUnit"></app-formula-form>
+  </div>
+</ng-template>
+<div class="btn-group mr-3">
+  <span class="popup-link" (click)="open(content)">
+    <span *ngIf="!formula">Define Formula</span>
+  </span>
+
+  <div *ngIf="formula" class="btn-group set-position" ngbDropdown role="group"
+    aria-label="Button group with nested dropdown">
+    <span class="btn popup-link dropdown-toggle-split" ngbDropdownToggle><span
+        class="mr-2  ">{{ formula }}</span></span>
+    <div class="dropdown-menu dropdown-menu-padding" ngbDropdownMenu>
+      <div ngbDropdownItem class="e">
+        <app-formula-details-popup [DataForPricing]="contractDetails" [itemIndex]="itemIndex"
+          [mdmPriceUnit]="mdmPriceUnit">
+        </app-formula-details-popup>
+      </div>
+      <div ngbDropdownItem class="e">
+        <span class="px-1" (click)="open(content)">
+          Change Formula
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="edit-pop-container">
+  <div class="txt-center">
+    {{currentCellData.rowName}} | {{currentCellData.colName}} - {{currentCellData.nextColName}}
+  </div>
+  <form class="input-container" [formGroup]="powerValEditPopup">
+    <span *ngIf="display === 'Quantity' || display === 'All'">
+      <div>
+        Quantity
+      </div>
+      <div>
+        <input type="text" formControlName="Quantity" name="quantity">
+      </div>
+    </span>
+    <span *ngIf="display === 'Price' || display === 'All'">
+      <div>
+        Price
+      </div>
+      <div>
+        <input type="text" formControlName="Price" name="price">
+      </div>
+    </span>
+  </form>
+  <div class="txt-center">
+    <span class="action">
+      <img (click)="save()" class="cursor" src=".\assets\icons\Save.png" />
+    </span>
+    <span class="action">
+      <img (click)="cancel()" class="cursor" src=".\assets\icons\Cancel.png" />
+    </span>
+  </div>
+</div>

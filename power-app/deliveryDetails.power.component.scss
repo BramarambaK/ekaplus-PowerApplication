@@ -1,0 +1,156 @@
+.padr20 {
+  padding-right: 20px;
+}
+.card-footer {
+  background-color: white;
+  border-top: 1px solid;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+}
+.form-control {
+  padding: 6px;
+}
+.packagingheader {
+  border-bottom: 1px solid #dee2e6;
+  background-color: white;
+}
+.packagingfontsize {
+  font-size: 18px;
+}
+.card {
+  margin-bottom: 57px;
+  height: calc(100vh - 125px);
+  overflow: auto;
+}
+.col-lg-10 {
+  padding-left: 0px;
+  padding-top: 10px;
+  padding-right: 25px;
+}
+.red {
+  color: red;
+}
+.popupMessage {
+  padding: 0px 4px;
+  color: #333;
+  position: relative;
+  border: 1px solid #e4e7ea;
+  right: 0px;
+  white-space: nowrap;
+  background-color: rgb(225, 243, 255);
+  font-size: 14px;
+  color: black;
+  visibility: hidden;
+  border-radius: 5px;
+}
+.popupMessage1 {
+  padding: 0px 4px;
+  border: 1px solid #e4e7ea;
+  color: #333;
+  position: relative;
+  right: 0px;
+  white-space: nowrap;
+  background-color: rgb(225, 243, 255);
+  font-size: 14px;
+  color: black;
+  border-radius: 5px;
+}
+
+.message {
+  visibility: visible;
+  &:hover {
+    & + .popupMessage {
+      visibility: visible;
+    }
+  }
+}
+.message1 {
+  visibility: visible;
+  &:hover {
+    & + .popupMessage1 {
+      visibility: visible;
+    }
+  }
+}
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+  background-image: none !important;
+}
+.force-disable {
+  background-color: #e4e7ea;
+  opacity: 1;
+  pointer-events: none;
+}
+input[type="number"] {
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+}
+@-moz-document url-prefix() {
+  input[type="number"] {
+    -moz-appearance: textfield;
+    margin: 0;
+  }
+}
+
+.blur {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  background: #0000002b;
+}
+
+.loaderFinal {
+  border: 4px solid #fff;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  position: fixed;
+  top: calc(50vh - 40px);
+  left: calc(50vw - 40px);
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.valuation-formula{
+  width: 227px !important;
+  height: 35px;
+  border-radius: 4px;
+  position: absolute;
+}
+
+.is-valuation-invalid{
+  border: 1px solid red;
+}
+
+.h-custom{
+  height: 50px;
+}
+
+.row-power:nth-child(2){
+  margin-top: 20px;
+}
+
+.alert {
+  top: 11px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  min-width: 600px;
+}

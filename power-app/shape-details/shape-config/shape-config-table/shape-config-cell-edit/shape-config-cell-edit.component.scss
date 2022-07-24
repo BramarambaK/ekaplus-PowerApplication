@@ -1,0 +1,37 @@
+.edit-pop-container{
+    width: 300px;
+    background: white;
+    padding: 5px;
+    box-shadow: 0px 0px 5px darkgrey;
+    border-radius: 4px;
+    position: absolute;
+    top: 90%;
+    left: 90%;
+}
+
+.txt-center{
+    text-align: center;
+}
+
+.input-container{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0 20px;
+    input{
+        width: 100px;
+        border-radius: 3px;
+        border: 0.7px solid silver; 
+        &:focus{
+            outline: none;
+        }
+    }
+}
+
+.action{
+    border-radius: 50px;
+    padding: 5px;
+}
+
+.cursor{
+    cursor: pointer;
+}

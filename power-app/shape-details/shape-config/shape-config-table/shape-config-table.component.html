@@ -1,0 +1,65 @@
+<div>
+  <form [formGroup]="displayValForm" class="py-2">
+    <div class="row justify-content-between mx-0">
+      <div>
+        <select formControlName="displayVal" class="form-control" id="exampleFormControlSelect1">
+          <option *ngFor="let option of dropdownOptions" [ngValue]="option">
+            {{option}}
+          </option>
+        </select>
+      </div>
+      <div class="upload" *ngIf="dropdownValue!=='All'">
+        <span class="link">
+          <label for="file-upload" class="custom-file-upload">
+            Upload {{displayValForm.get('displayVal').value}} file
+          </label>
+          <input id="file-upload" type="file" (change)="fileChange($event)" formControlName="fileDetails" />
+        </span>
+        <span class="italic pl-1">(.xls / .csv)</span>
+      </div>
+      <div>
+        <span class="link" (click)="exportExcel()">export to excel</span>
+      </div>
+    </div>
+  </form>
+  <p-table #table [value]="shapeDefinition" [columns]="shapeDefinitionColumns" [scrollable]="true" [rows]="40"
+    [autoLayout]="true" scrollHeight="350px" [virtualScroll]="true"
+    (onLazyLoad)="onScroll($event)" [lazy]="true" [virtualRowHeight]="28" [totalRecords]="totalRecords"
+    [loading]="loading">
+    <ng-template pTemplate="colgroup" let-columns>
+      <colgroup>
+        <col *ngFor="let col of columns" [style.width.px]="120" />
+      </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let heading of shapeDefinitionColumns">{{heading}}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+      <tr>
+        <td *ngFor="let col of shapeDefinitionColumns; let colIndex = index" [ngClass]="{'quantityData': dropdownValue === 'Quantity', 'priceData': dropdownValue === 'Price', 'allData': dropdownValue === 'All' }">
+          <div (click)="setCurrentCellData($event,overlaypanel,rowIndex,colIndex,col,rowData[col],rowData)">
+            <!-- <span *ngIf="dropdownValue!=='All'; else combinedCell">{{rowData[col]}}</span>
+            <template #combinedCell>{{rowData[col].split('|')}}</template> -->
+            {{rowData[col]}}
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="loadingbody">
+      <tr style="height:34px">
+          <td *ngFor="let col of shapeDefinitionColumns">
+              <div class="loading-text"></div>
+          </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-overlayPanel #overlaypanel [appendTo]="table">
+    <div class="position-relative edit-popup">
+      <shape-config-cell-edit [currentCellData]="currentCellData" [display]="dropdownValue"
+        (saveValue)="shapeConfigChanged($event)">
+      </shape-config-cell-edit>
+    </div>
+  </p-overlayPanel>
+</div>

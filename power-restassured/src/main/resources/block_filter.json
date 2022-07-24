@@ -1,0 +1,13 @@
+{
+	"filterData": {
+		"filter": [
+			{
+				"fieldName": "powerContractRefNo",
+				"value": [
+					"P-12-EOT",
+					"P-11-EOT"
+				]
+			}
+		]
+	}
+}

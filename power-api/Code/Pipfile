@@ -1,0 +1,20 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+autopep8 = "*"
+pylint = "*"
+
+[packages]
+flask = "*"
+pandas = "*"
+requests = "*"
+boto3 = "*"
+aiohttp = "*"
+python-dateutil = "*"
+kafka-python = "*"
+
+[requires]
+python_version = "3.7"

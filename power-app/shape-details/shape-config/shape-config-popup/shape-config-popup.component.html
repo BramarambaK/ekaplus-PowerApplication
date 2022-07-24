@@ -1,0 +1,37 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Define Shape</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p-tabView (onChange)="handleTabChange($event)">
+      <p-tabPanel header="Contracted">
+        <div *ngIf="tabValue === 'contracted'">
+          <shape-config-table [shapeDetails]="shapeDetails" [shapeIndex]="shapeIndex" [priceType]="priceType" [tabValue]="tabValue" (shapeConfig)="updateShapeConfig($event)"></shape-config-table>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Nominated">
+        <div *ngIf="tabValue === 'nominated'">
+          <shape-config-table [shapeDetails]="shapeDetails" [shapeIndex]="shapeIndex" [priceType]="priceType" [tabValue]="tabValue" (shapeConfig)="updateShapeConfig($event)"></shape-config-table>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Actuals">
+        <div *ngIf="tabValue === 'actuals'">
+          <shape-config-table [shapeDetails]="shapeDetails" [shapeIndex]="shapeIndex" [priceType]="priceType" [tabValue]="tabValue" (shapeConfig)="updateShapeConfig($event)"></shape-config-table>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+    <div *ngIf="loading">
+      <div class="blur"></div>
+      <div>
+          <div class="loaderFinal"></div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary btn-sm" (click)="saveShapeConfig(modal)">SAVE</button>
+  </div>
+</ng-template>
+<span class="link" (click)="open(content)">Configure</span>

@@ -1,0 +1,31 @@
+p-table::ng-deep {
+  .ui-table .ui-table-thead > tr > th {
+    padding: 7px;
+    background-color: #e3eff3;
+  }
+  .ui-table .ui-table-tbody > tr > td {
+    padding: 7px;
+  }
+}
+
+.days-picker-component {
+  //position: absolute;
+  background: white;
+  //top: -16px;
+  //left: -6px;
+}
+
+.cursor{
+  cursor: pointer;
+}
+
+.invalid{
+  border: 1.5px solid red !important;
+}
+
+.text-overflow{
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

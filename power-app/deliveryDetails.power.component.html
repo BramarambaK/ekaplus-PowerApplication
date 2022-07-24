@@ -1,0 +1,58 @@
+<ng-container *ngIf="apiCalled">
+  <div class="blur"></div>
+  <div>
+      <div class="loaderFinal"></div>
+  </div>
+</ng-container>
+<div class="row mr-0" [ngClass]="{'ml-0' : isPopUp}">
+  <div *ngIf="!isPopUp" class="col-lg-2 pr-0">
+    <create-menu *ngIf="workFlowdata?.storage" [workFlowData]="workFlowdata?.storage"></create-menu>
+  </div>
+  <div class="p-2" [ngClass]="{'col-lg-12' : isPopUp, 'col-lg-10': !isPopUp}">
+    <div class="card">
+      <div *ngIf="!isPopUp" class="card-header packagingheader">
+        <span class="packagingfontsize">Delivery Details</span>
+      </div>
+      <div class="card-body">
+        <form *ngIf="!showLoader" [formGroup]="deliveryDetailsForm">
+          <div class="form-group">
+            <div class="row row-power" *ngFor="let row of workFlowFields; index as rowIndex">
+              <div class="nopadding padr20 col-md-3" *ngFor="let field of row; index as fieldIndex">
+                <label>
+                  {{ metafields[field.key][metafields[field.key].labelKey] }}
+                  <span class="red" *ngIf="!editFlag">*</span> </label><br />
+                <select *ngIf="metafields[field.key].type === 'dropdown'; else valuation" [formControlName]="field.key" class="form-control createcontrol padr20 message1 is-invalid"
+                  [ngClass]="{ 'is-invalid': finalValidation ? deliveryDetailsForm.controls[field.key].invalid : (deliveryDetailsForm.controls[field.key].invalid && !deliveryDetailsForm.controls[field.key].untouched) }"
+                  (change)="getSelectedTxt($event,field.key)">
+                  <!-- <option selected disabled hidden style="display: none"> </option> -->
+                  <option *ngFor="let items of metafields[field.key].options" [ngValue]="items.key">{{
+                    items.value
+                  }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <ng-template #valuation>
+            <div class="valuation-formula" [ngClass]="{ 'is-valuation-invalid': finalValidation ? deliveryDetailsForm.controls['valuationFormulaId'].invalid : (deliveryDetailsForm.controls['valuationFormulaId'].invalid && !deliveryDetailsForm.controls['valuationFormulaId'].untouched) }">
+              <pricing-popup (click)="setPricingInvocation('valuationFormula')" [formulaName]="pricingFormulaName"
+                [contractDetails]="contractData" itemIndex=0 [mdmPriceUnit]="priceUnitOptions">
+              </pricing-popup>
+              <input type="hidden" formControlName="valuationFormulaId">
+            </div>
+          </ng-template>
+        </form>
+        <shape-details-table #shapeTable *ngIf="deliveryType === 'Shape'; else blockTableTemplate" [productId]="product" [contractRefNo]="powerContractRefNo" [isPopUp]="isPopUp" [popUpTableDetails]="popUpTableDetails"></shape-details-table>
+        <ng-template #blockTableTemplate>
+          <block-details-table #blockTable [productId]="product" [contractRefNo]="powerContractRefNo" [isPopUp]="isPopUp" [popUpTableDetails]="popUpTableDetails"></block-details-table>
+        </ng-template>
+        <div *ngIf="outcome" class="card-footer">
+          <app-renderbutton [position]="'bottom'" [data]="workFlowdata.storage" (workFlowTask)="workFlow($event)">
+          </app-renderbutton>
+        </div>
+      </div>
+    </div>
+    <app-confirm-popup #contractSavePopup (action)="redirectToListing()"  title="Contract Save" btn1="OK"></app-confirm-popup>
+    <p class="alert" *ngIf="handleAlert(showWarning)">
+      <ngb-alert type="danger" (close)="closeAlert(alert)">{{errorMsg}}</ngb-alert>
+    </p>
+  </div>

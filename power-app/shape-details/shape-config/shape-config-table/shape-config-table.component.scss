@@ -1,0 +1,86 @@
+.link {
+  color: dodgerblue;
+  cursor: pointer;
+}
+
+.modal-header{
+  padding: 10px;
+}
+
+.close{
+  outline: none;
+}
+
+.modal-body{
+  margin-top: 1px !important;
+}
+
+.inputCell:focus{
+  outline: none !important;
+}
+
+select{
+  width: 100px;
+  height: 30px;
+  padding: 5px;
+}
+
+.italic{
+  font-style: italic;
+}
+
+.upload{
+  flex: auto;
+  padding: 5px 5px 5px 15px;
+}
+
+input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 !important;
+}
+
+.edit-popup{
+  position: relative;
+  top: -100px;
+  left: -70px;
+}
+
+.alert{
+  position: absolute;
+  width: 450px;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%,0);
+}
+
+.ui-table .ui-table-scrollable-view .ui-table-scrollable-body{
+  min-height: 350px;
+}
+
+.loading-text {
+  display: block;
+  background-color: #f1f1f1;
+  min-height: 19px;
+  animation: pulse 1s infinite ease-in-out;
+  text-indent: -99999px;
+  overflow: hidden;
+}
+
+.quantityData:not(:first-child){
+  color: orange;
+}
+
+.priceData:not(:first-child){
+  color: #3ad313;
+}
+
+.allData:not(:first-child){
+  color: yellow;
+}
+
+
+

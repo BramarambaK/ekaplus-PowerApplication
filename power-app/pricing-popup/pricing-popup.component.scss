@@ -1,0 +1,125 @@
+.popup-link {
+  color: dodgerblue;
+  font-size: 14px;
+  font-weight: 500;
+  padding-left: 4px;
+  cursor: pointer;
+}
+
+.form-control.formula {
+  width: 230px;
+  height: 30px !important;
+  cursor: pointer;
+  position: relative;
+  span {
+    position: relative;
+    top: -2px;
+  }
+  .icon {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+  }
+}
+
+table {
+  width: 100%;
+}
+
+td {
+  padding: 0.25rem;
+}
+
+th {
+  width: 13%;
+  font-weight: 500;
+}
+
+i {
+  font-size: 15px;
+  margin: 2.5px;
+  cursor: pointer;
+}
+
+.addItem {
+  display: flex;
+  flex-direction: row-reverse;
+  color: dodgerblue;
+  font-weight: 500;
+  margin: 10px;
+  cursor: pointer;
+}
+
+select {
+  padding: 0;
+  min-width: 90px;
+}
+
+.action {
+  width: 60px;
+  i {
+    border: 1px solid grey;
+    border-radius: 50%;
+    font-size: 16px;
+    margin: 5px;
+    color: grey;
+    &:hover {
+      color: dodgerblue;
+      border-color: dodgerblue;
+      cursor: pointer;
+    }
+  }
+}
+
+.modal-body {
+  padding: 0;
+}
+
+.w-75 {
+  width: 75% !important;
+}
+.popup-link {
+  color: dodgerblue;
+  font-size: 14px;
+  padding-left: 4px;
+  cursor: pointer;
+}
+.e:hover {
+  background-color: #c5ddf9;
+}
+.dropdown-menu-padding {
+  margin: -22px 0px 0px 48px;
+}
+
+.LabelExt {
+  cursor: pointer;
+  max-width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: table-cell;
+}
+
+.set-position {
+  position: absolute;
+  top: -20px;
+  width: 165px;
+  .btn {
+    text-align: left;
+  }
+}
+
+.dropdown-toggle-split{
+  span{
+    display: inline-block;
+    width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+:host ::ng-deep .dropdown-toggle::after{
+  position: relative;
+  top: -5px;
+}

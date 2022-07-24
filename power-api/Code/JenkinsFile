@@ -1,0 +1,102 @@
+ node {
+def version = 'test'
+def imageName = 'test'
+def finalImageName = 'test'
+def gradleFilePath ='power-api/Code/';
+def tag = 'test';
+def app
+def nexus_url=''
+
+step([$class: 'WsCleanup'])
+  
+ stage('Checkout from Github') {
+
+  git branch: '${BranchName}',credentialsId:'GitCredentialsCommon', url: 'https://github.com/ekaplus/PowerApplication.git'
+
+    }
+	
+	  stage('Get Version  & Image Name'){
+  
+    if (isUnix()) {
+        dir("${gradleFilePath}") {
+		
+		nexus_url = sh returnStdout: true, script: "grep -iR '^nexus_url' app.properties | awk -F = '{print \$2 }'"
+	   nexus_url = nexus_url.replaceAll("[\r\n]+","");
+        echo "nexus_url is   -> ${nexus_url}"
+		
+       version = sh returnStdout: true, script: "grep -iR '^version' app.properties | awk -F = '{print \$2 }'"
+	   version = version.replaceAll("[\r\n]+","");
+        echo "version is   -> ${version}"
+        
+        imageName = sh returnStdout: true, script: "grep -iR '^image_name' app.properties | awk -F = '{print \$2 }'"
+		imageName = imageName.replaceAll("[\r\n]+","");
+        echo "imageName is   -> ${imageName}"
+		finalImageName = "${imageName}";
+		 echo "Final Image Name is   -> ${finalImageName}"
+		 
+		 tag = "${version}_${BranchName}";
+		 echo "Final Tag Name is   -> ${tag}"
+
+        }
+		
+		
+       
+        
+    } 
+  }
+
+stage('Upload to Nexus') {
+     if (isUnix()) {
+        dir("${gradleFilePath}") {
+            sh "zip -r ../${imageName}-${version}.zip ."
+            sh "curl -v -u admin:admin123 --upload-file ../${imageName}-${version}.zip ${nexus_url}/${imageName}/${version}/"
+            echo "Uploaded zip to nexus."
+        }
+    } 
+}  
+
+ stage('Remove existing Images if exists'){ 
+     if (isUnix()) {
+        
+      sh '''
+          echo  Removing image [ '''+finalImageName+''':latest ] if exists.
+          docker image rm  -f '''+finalImageName+''':latest 2>/dev/null || true
+           echo Removing image [ '''+finalImageName+''':'''+tag+''' ] if exists.
+           docker rm  -f '''+finalImageName+''':'''+tag+''' 2>/dev/null || true
+          '''
+          
+         }
+   }
+
+stage('Build API Image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+      dir("${gradleFilePath}")  {
+       
+        sh '''
+		docker build -f DockerFile -t 192.168.1.225:50000/'''+finalImageName+''':'''+tag+''' .
+       '''
+      }
+    }
+
+stage('Push API to Registry ') {
+    
+           dir("${gradleFilePath}") {
+              
+         sh '''
+        
+        docker push 192.168.1.225:50000/'''+finalImageName+''':'''+tag+'''
+        docker image rm -f 192.168.1.225:50000/'''+finalImageName+''':'''+tag+''' 2>/dev/null || true
+        
+         '''
+          }
+    }
+    
+    stage('Deploy API') {
+    	echo "remove container with name -> ${imageName}-${BranchName} if exists"
+	 sh   "docker rm  -f ${imageName}-${BranchName} 2>/dev/null || true "
+          sh "docker pull 192.168.1.225:50000/${finalImageName}:${tag}"
+          sh "docker run -d -p ${port}:8686 --name ${imageName}-${BranchName} -v ${dockerVolume}:/app --env-file ${envFile}  192.168.1.225:50000/${finalImageName}:${tag}"
+
+    }
+}

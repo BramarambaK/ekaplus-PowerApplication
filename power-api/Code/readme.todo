@@ -1,0 +1,53 @@
+
+TODOs:
+    ✔ Generate block delivery item to delivery units @done(20-05-07 12:12)
+    ✘ Delivery units Class structure @cancelled(20-05-07 12:13)
+    ✔ load general details @done(20-05-07 22:47)
+    ✔ load formula details for formula ids @done(20-05-07 22:47)
+    ✔ load item details for contract ref no list @done(20-05-07 22:47)
+    ✔ AWS Lambda API changes to compute price for delivery unit @done(20-05-07 15:44)
+    ✔ Delivery unit generation - Integration @done(20-05-08 14:35)
+    ✔ Hourly price compuation instead of 5 minutes @done(20-05-11 13:06)
+    ✔ Pandas dataframe - global constant @done(20-05-11 13:06)
+    ✔ Valuation engine - algorithm steps @done(20-05-11 13:07)
+    ✔ Convert lambda processing unit to contract item @done(20-05-13 12:19)
+    ✔ Process based on valuation date @done(20-05-18 17:25)
+    ✔ Platform API call Put - Precreate collections @done(20-05-18 17:25)
+    ✘ API for Platform APIs @cancelled(20-05-19 19:47)
+    ✔ Validation on retrieval of data ( valuation formula id ) @done(20-06-03 15:28)
+    ☐ Error Handling accross lambda calls, log errors
+    ☐ populate start time & end time for shape data
+    ☐ Remove HARDCODED CONTRACT DETAILS
+    ☐ Cleanup FIELDS IN CONTRACT ITEMS & FORMULA 
+    ☐ Pricing API call : Replace random price with actual price
+    ☐ Collection creation logic change
+    ☐ Handle cross over start time and end time
+    ☐ Handle deriving start time & end time from file column names 
+    ✔ Valuation code for fixed price @done(20-06-03 15:29)
+    ✔ invoke lambda with async invocation model @done(20-06-03 15:30)
+    ✔ Valuation results in platform collection @done(20-05-15 11:15)
+    ✔ Realized & Unrealized data @done(20-05-19 19:47)
+    ☐ Explore caching options in cloud
+    ✔ M2M price calculation @done(20-06-03 15:30)
+    ☐ Improve performance of item price lambda - pandas
+    ✘ Save the repsonse of valuation to collection ( 4 collections) @cancelled(20-05-19 19:47)
+    ☐ Save lambda response in Dynamo DB
+    ☐ SQS + AWS Lambda Integration for delivery unit processing
+    ☐ AWS Step function
+    ☐ Apache Airflow 
+    ✔ Convert processing unit to delivery item @done(20-05-13 13:46)
+    ✘ Valuation results in csv file @cancelled(20-05-15 12:47)
+    ☐ Dynamo Db - for price data
+    ☐ Python generator - update formula details in delivery unit
+    ☐ Testcase - Individual testable unit
+    ☐ Exception handling on API call (connection/auth token/tenant/server down/wrong request/invalid meta)
+    ☐ Exception handling - ChunckEncoding error
+    ☐ Handle empty results on Connect Data API call
+    ☐ API to call the lambda pricing api
+    ✘ Connect Data call - apply sys_data_state filter @cancelled(20-05-07 20:10) 
+
+Performance:
+    ☐ Generate contracts with 50 block items
+
+    Dependencies:
+    ☐ Contract with shape delivery item 

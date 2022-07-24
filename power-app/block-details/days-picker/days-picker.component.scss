@@ -1,0 +1,35 @@
+.day-picker {
+  display: flex;
+  justify-content: space-around;
+  padding: 5px 0;
+  width: 200px;
+  height: 32px;
+  .day-round-btn {
+    height: 24px;
+    width: 24px;
+    border-radius: 30px;
+    padding: 1.5px 0px 0px 6px;
+    cursor: pointer;
+  }
+}
+
+.dark{
+  background: #007ad9;
+  border: 0.5px solid #007ad9 !important;
+  color: white;
+  &:hover {
+    background: #007ad9 !important;
+    color: white;
+  }
+}
+
+.light{
+  border: 0.5px solid silver;
+  color: #000000;
+  background: #ffffff;
+  &:hover {
+    background: #20a8d8 !important;
+    color: white;
+    border: 0.5px solid #20a8d8 !important;
+  }
+}

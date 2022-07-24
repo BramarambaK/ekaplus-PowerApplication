@@ -1,0 +1,106 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  power-app-lambdas
+  
+  Power App API SAM Template
+
+Parameters:
+    Stage:
+        Type: String
+        Default: dev
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 120
+    Environment:
+      Variables:
+        price_s3_bucket_name: testing-engg
+        STACK_NAME: !Ref AWS::StackName
+
+Resources:
+  DeliveryItemPriceFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      FunctionName: deliveryitem-price
+      CodeUri: functions/
+      Handler: deliveryitem-price.lambda_handler
+      Runtime: python3.8
+      Events:
+        DeliveryItemPriceAPI:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /deliveryitem-price
+            Method: post
+            RestApiId: !Ref PowerAppApiDev
+      Policies:
+        - AWSLambdaExecute
+        - Version: '2012-10-17' 
+          Statement:
+            - Effect: Allow
+              Action:
+                - s3:GetObject
+                - s3:GetObjectACL
+                - s3:PutObject
+                - s3:ListBucket
+              Resource:
+                'arn:aws:s3:::testing-engg/*'
+                
+  DeliveryItemValuationFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      FunctionName: deliveryitem-valuation
+      CodeUri: functions/
+      Handler: deliveryitem-valuation.lambda_handler
+      Runtime: python3.8
+      Events:
+        DeliveryItemPriceAPI:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /deliveryitem-valuation
+            Method: post
+            RestApiId: !Ref PowerAppApiDev
+      Policies:
+        - AWSLambdaExecute
+        - Version: '2012-10-17' 
+          Statement:
+            - Effect: Allow
+              Action:
+                - s3:GetObject
+                - s3:GetObjectACL
+                - s3:PutObject
+                - s3:ListBucket
+              Resource:
+                'arn:aws:s3:::testing-engg/*'
+
+  GetMarketPriceFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      FunctionName: get_market_price
+      CodeUri: functions/
+      Handler: get_market_price.lambda_handler
+      Runtime: python3.8
+      Events:
+        DeliveryItemPriceAPI:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /get_market_price
+            Method: post
+            RestApiId: !Ref PowerAppApiDev
+      Policies:
+        - AWSLambdaExecute
+        - Version: '2012-10-17' 
+          Statement:
+            - Effect: Allow
+              Action:
+                - s3:GetObject
+                - s3:GetObjectACL
+                - s3:PutObject
+                - s3:ListBucket
+              Resource:
+                'arn:aws:s3:::testing-engg/*'
+  PowerAppApiDev:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: dev

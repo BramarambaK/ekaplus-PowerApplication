@@ -1,0 +1,19 @@
+<ng-template #content let-modal let-c="close" let-d="dismiss" style="width: 95vw;">
+  <div class="modal-header">
+    <div class="modal-title" id="modal-basic-title">Curve Details</div>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <span *ngIf="!index" class="px-2">
+    <pricing [fromPricing]="false" [indexPricing]="false" [outerModal]="modal" [contractDetails]="contractDetails"
+      [fromContractPopup]="true" [DataForPricing]="DataForPricing" [itemId]="itemIndex" [mdmPriceUnit]="mdmPriceUnit">
+    </pricing>
+  </span>
+  <span *ngIf="index">
+    <app-formula-form [fromPricing]="false" [indexPricing]="true" [outerModal]="modal"
+      [contractDetails]="contractDetails" [mdmPriceUnit]="mdmPriceUnit"></app-formula-form>
+  </span>
+</ng-template>
+
+<span class="px-1 d-block" (click)="open(content)">Details</span>

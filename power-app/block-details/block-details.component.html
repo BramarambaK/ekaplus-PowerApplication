@@ -1,0 +1,114 @@
+<div>
+  <div class="row justify-content-between mt-4 mx-0">
+    <div class="float-left">
+      <label>Block Details</label>
+    </div>
+    <div class="float-right">
+      <label class="cursor" (click)="addBlock()">+ Add Block</label>
+    </div>
+  </div>
+  <div class="row mx-0" *ngIf="blockDetails.length > 0">
+    <p-table [value]="blockDetails" [columns]="blockDetailsHeading" [scrollable]="true" [rows]="30" [autoLayout]="true"
+      [style]="{width: isPopUp ? 'calc(100vw - 65px)' : 'calc(100vw - 260px)'}">
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col *ngFor="let col of columns" [style.width.px]="col.width" />
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th *ngFor="let heading of blockDetailsHeading"><span class="text-overflow" title="{{heading.label}}">{{heading.label}}</span></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+        <tr>
+          <td *ngFor="let col of blockDetailsHeading" [ngClass]="{'invalid' : finalValidation ? validation[i][col.key] : false}">
+            <div pEditableColumn *ngIf="blockDetailsGraph[col.key].editable; else default">
+              <p-cellEditor *ngIf="blockDetailsGraph[col.key].type === 'input'">
+                <ng-template pTemplate="input">
+                  <input pInputText type="number" [(ngModel)]="rowData[col.key]" style="width : 80px"
+                    (ngModelChange)="blockTableChange(i, rowData, col.key)">
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{rowData[col.key]}}
+                </ng-template>
+              </p-cellEditor>
+              <p-cellEditor *ngIf="blockDetailsGraph[col.key].type === 'datePicker'">
+                <ng-template pTemplate="input">
+                  <p-calendar appendTo="body" [(ngModel)]="rowData[col.key+'DatePicker']"
+                    [inputStyle]="{'width':'85px'}" [panelStyle]="{'width':'360px'}"
+                    (ngModelChange)="blockTableDateChange(i, rowData, col.key)" dateFormat="dd-mm-yy">
+                  </p-calendar>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{rowData[col.key]}}
+                </ng-template>
+              </p-cellEditor>
+              <p-cellEditor *ngIf="blockDetailsGraph[col.key].type === 'timePicker'">
+                <ng-template pTemplate="input">
+                  <p-calendar appendTo="body" [(ngModel)]="rowData[col.key+'TimePicker']" [minDate]="getMinTime(col.key, rowData)"
+                    [inputStyle]="{'width':'85px'}" [panelStyle]="{'min-width':'90px'}"
+                    (ngModelChange)="blockTableTimeChange(i, rowData, col.key)" [timeOnly]="true" hourFormat="24">
+                  </p-calendar>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{rowData[col.key]}}
+                </ng-template>
+              </p-cellEditor>
+              <p-cellEditor *ngIf="blockDetailsGraph[col.key].type === 'dropdown'">
+                <ng-template pTemplate="input">
+                    <p-dropdown appendTo="body" [options]="blockDetailsGraph[col.key].options" [(ngModel)]="rowData[col.key]" (ngModelChange)="blockTableDropdownChange(i, rowData, col.key)" [style]="{'minWidth':'60px','width':'85px'}"></p-dropdown>
+                </ng-template>
+                <ng-template pTemplate="output">
+                    {{ rowData[col.key + 'DisplayName'] }}
+                </ng-template>
+              </p-cellEditor>
+            </div>
+            <ng-template #default>
+              <span *ngIf="blockDetailsGraph[col.key].type==='text'">{{ rowData[col.key] }}</span>
+              <span *ngIf="blockDetailsGraph[col.key].type === 'dayPicker'">
+                <days-picker class="days-picker-component" (selectedDays)="selectedBlockDays($event, i)" [existingDays]="rowData[col.key]"></days-picker>
+              </span>
+              <span *ngIf="blockDetailsGraph[col.key].type==='priceExpression'">
+                <div *ngIf="rowData['priceType'] === 'FormulaPricing'">
+                  <pricing-popup (click)="setPricingInvocation(i)" [formulaName]="this.pricingFormulaName[rowData.expression]"
+                    [contractDetails]="contractData" itemIndex=0 [mdmPriceUnit]="priceUnitOptions">
+                  </pricing-popup>
+                  <input type="hidden" [(ngModel)]="blockFormulaId">
+                </div>
+                <div pEditableColumn *ngIf="rowData['priceType'] === 'Fixed'">
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <input pInputText type="number" [(ngModel)]="rowData['price']" style="width : 80px"
+                        (ngModelChange)="blockTableChange(i, rowData, 'price')">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                      {{rowData['price']}}
+                    </ng-template>
+                  </p-cellEditor>
+                </div>
+              </span>
+              <span *ngIf="blockDetailsGraph[col.key].type==='formulaPrice'">
+                <button *ngIf="rowData[col.key]===-1; else showPrice" (click)="calculateFormualaPrice(i,rowData)" type="button" class="btn btn-secondary btn-sm cursor">Calculate</button>
+                <ng-template #showPrice>{{rowData[col.key]}}</ng-template>
+              </span>
+              <span *ngIf="blockDetailsGraph[col.key].type==='action'" (click)="deleteRow(i)">
+                <i class="fa fa-fw fa-trash"></i>
+              </span>
+            </ng-template>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <tr>
+          <td colspan="16">Total</td>
+          <td>{{ grandTotal.totalDays }}</td>
+          <td>{{ grandTotal.totalHours }}</td>
+          <td>{{ grandTotal.totalQuantity }}</td>
+          <td>{{ grandTotal.totalAmount }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <app-confirm-popup #priceError  title="Price Calculation Error" btn1="OK"></app-confirm-popup>
+</div>

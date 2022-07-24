@@ -1,0 +1,106 @@
+[
+    {
+      "fieldName": "Contract Ref No",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Contract Item Ref No",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Contract Type",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Product",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Trader Name",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "CP Name",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Deal Type",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Payment Terms",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Tax Scehdule Country",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Tax Scehdule",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Profit Center",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Facility Location",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Strategy",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Contract Issue Date",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Delivery Type",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Block/Shape No",
+      "dataType": "Number"
+    },
+    {
+      "fieldName": "Start Time",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "End Time",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Price Type",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Quantity",
+      "dataType": "Number"
+    },
+    {
+      "fieldName": "Quantity Unit",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Price",
+      "dataType": "Number"
+    },
+    {
+      "fieldName": "Price Unit",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Market Price",
+      "dataType": "Number"
+    },
+    {
+      "fieldName": "Delivery Date",
+      "dataType": "String"
+    },
+    {
+      "fieldName": "Period End Date",
+      "dataType": "String"
+    }
+  ]

@@ -1,0 +1,9 @@
+FROM python:3.8-slim-buster
+
+COPY requirements.txt /
+RUN pip3 install -r /requirements.txt
+RUN mkdir -p /usr/src/app
+COPY . /usr/src/app
+WORKDIR /usr/src/app
+EXPOSE 8686
+ENTRYPOINT ["gunicorn", "-w", "4", "-b", ":8686", "--log-level", "debug", "--error-logfile", "log/power-api.log", "api.controller:startApp()"]
